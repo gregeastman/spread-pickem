@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block additional_css %}
+<link type="text/css" rel="stylesheet" href="/media/css/login.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<h1>Login to Weekly Pick &apos;Em</h1>
+
+{% if failure_message %}
+    <span id="span_status_message" class="error"><strong>Login failed: </strong>{{ failure_message }}</span><br />
+    {% if google_logout %}
+    <span><a href="{{ google_logout }}">Logout of Google</a></span><br />
+    {% endif %}
+    <br />
+{% endif %}
+
+<form action= "/login" method="POST">
+	<table id="tbl_login">
+		<tbody>
+			<tr><td><label for="username">Username</label></td><td><input type="text" value="{{ username }}" name="username"/><br /></td><td></td></tr>
+			<tr><td><label for="password">Password</label></td><td><input type="password" name="password"/><br /></td><td class="forgot"><a href="/forgot">Forgot Password?</a></td></tr>
+		</tbody>
+	</table>
+	<input class="btn_big" type="submit" value="Login" />	
+</form>
+<h2><a href="/googlelogin">Login with Google</a></h2>
+
+<h4>If you don't have an account, <a href="/signup">signup.</a></h4>
+
+{% endblock %}

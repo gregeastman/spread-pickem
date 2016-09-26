@@ -1,0 +1,20 @@
+#div_error
+{
+	display: none;
+	margin-bottom: 20px;		
+}
+
+.error
+{
+	color: #990000;
+}
+
+.white-space-pre {
+    white-space: pre-wrap;
+}
+
+div#div_toolbar 
+{
+	text-align: right; 
+	padding-bottom: 4px;
+}

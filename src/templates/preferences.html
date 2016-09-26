@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block additional_scripts %}
+<script type="text/javascript" src="/media/js/preferences.js"></script>
+{% endblock %}
+{% block content %}
+	<h3>Account Preferences</h3>
+	<div id="div_error">
+		<span id="span_error_message" class="error white-space-pre">Sample error message</span>
+	</div>
+	
+	<div>
+		<p>
+		{% if member.google_user_id %}
+			Your account is linked to {{ google_user.email() }}.<br />
+			{% if member.user_key %}
+			<input type="button" onclick="javascript:unlink_google()" value="Unlink Google Account" />
+			{% endif %}
+		{% else %}
+			{% if google_user %}
+			You are currently signed in to Google as {{ google_user.email() }}.<br />
+			Do you want to link your Google account?<br />
+			<input type="button" onclick="javascript:link_google()" value="Link Google Account" />
+			{% else %}
+			<a href="{{ google_login_url }}">Sign in to Google to link your Google account with Weekly Pick &apos;Em</a>
+			{% endif %}
+		{% endif %}
+		{% if member.user_key %}
+		<br /><br /><a href="/password">Change Password</a>
+		{% endif %}
+		</p>
+		<table>
+			<tbody>
+				<tr><td><label for="txt_name">First Name</label></td><td><input type="text" id="txt_name" value="{{ member.first_name }}" /></td></tr>
+				<tr><td><label for="txt_lastname">Last Name</label></td><td><input type="text" id="txt_lastname" value="{{ member.last_name }}" /></td></tr>
+	 			<tr><td><label for="txt_email">Email</label></td><td><input type="text" id="txt_email" value="{{ member.get_email_address() }}" {% if not member.user_key %}style="background-color: #DFD8D1" disabled{% endif %} /></td></tr>
+			</tbody>
+		</table>
+		{% if member.pending_email_key %}
+		<span style="font-style: italic;">There is a pending change to update the email address to {{ member.pending_email_key.get().property_value }}. Check your email to update to the new email address.</span><br />
+		{% endif %}
+	</div>
+	<br />
+	<input class="btn_big" type="button" onclick="javascript:update_preferences()" value="Update Preferences" />
+	<div>
+		<span id="span_status_message"></span>
+	</div>
+{% endblock %}
